@@ -449,7 +449,29 @@
     .hdr-right {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 16px;
+    }
+    .audio-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(21, 101, 192, 0.5));
+      border: 1px solid var(--dorado);
+      border-radius: 20px;
+      color: var(--dorado-suave);
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      animation: pulse-glow 2.2s infinite;
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .audio-banner:hover {
+      background: rgba(255, 215, 0, 0.35);
+      transform: scale(1.03);
     }
     .sound-btn {
       display: inline-flex;
@@ -650,6 +672,10 @@
       </div>
     </div>
     <div class="hdr-right">
+      <div id="audio-unlock-banner" class="audio-banner" role="button" tabindex="0" title="Haz clic para activar el audio ceremonial en esta pantalla">
+        <span>&#128276;</span>
+        <span>Haz clic para activar sonido</span>
+      </div>
       <button id="sound-btn" class="sound-btn" title="Activar o silenciar sonido de celebración">
         <span id="sound-icon">&#128266;</span>
         <span id="sound-label">Sonido: Activo</span>
@@ -927,21 +953,54 @@ function updateSoundUI() {
   }
 }
 
+let audioCtx = null;
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      if (!audioCtx) audioCtx = new AudioContextClass();
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const buffer = audioCtx.createBuffer(1, 1, 22050);
+      const source = audioCtx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioCtx.destination);
+      source.start(0);
+    }
+    const dummy = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+    dummy.play().then(() => dummy.pause()).catch(() => {});
+
+    audioUnlocked = true;
+    const banner = document.getElementById('audio-unlock-banner');
+    if (banner) banner.style.display = 'none';
+  } catch (err) {
+    console.warn('Audio unlock:', err);
+  }
+}
+
+document.addEventListener('click', unlockAudio);
+document.addEventListener('keydown', unlockAudio);
+document.addEventListener('touchstart', unlockAudio);
+
+const unlockBanner = document.getElementById('audio-unlock-banner');
+if (unlockBanner) {
+  unlockBanner.addEventListener('click', (e) => {
+    e.stopPropagation();
+    unlockAudio();
+    playCelebrationSound(0.4);
+  });
+}
+
 soundBtn.addEventListener('click', (e) => {
   e.stopPropagation();
+  unlockAudio();
   soundEnabled = !soundEnabled;
   updateSoundUI();
   if (soundEnabled) playCelebrationSound(0.4);
 });
-
-function unlockAudio() {
-  if (audioUnlocked) return;
-  audioUnlocked = true;
-  document.removeEventListener('click', unlockAudio);
-  document.removeEventListener('keydown', unlockAudio);
-}
-document.addEventListener('click', unlockAudio);
-document.addEventListener('keydown', unlockAudio);
 
 function playCelebrationSound(vol = 0.85) {
   if (!soundEnabled) return;
@@ -949,8 +1008,13 @@ function playCelebrationSound(vol = 0.85) {
     const src = SOUND_FILES[Math.floor(Math.random() * SOUND_FILES.length)];
     const audio = new Audio(src);
     audio.volume = vol;
-    audio.play().catch(err => {
-      console.warn('Audio en espera de interacción del usuario:', err);
+    audio.play().then(() => {
+      const banner = document.getElementById('audio-unlock-banner');
+      if (banner) banner.style.display = 'none';
+    }).catch(err => {
+      console.warn('Autoplay bloqueado por el navegador (requiere un clic):', err);
+      const banner = document.getElementById('audio-unlock-banner');
+      if (banner) banner.style.display = 'inline-flex';
     });
   } catch (err) {
     console.warn('Error reproduciendo sonido:', err);
