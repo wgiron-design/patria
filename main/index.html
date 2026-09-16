@@ -154,9 +154,69 @@
       padding: 20px 48px 20px 56px;
     }
 
+    /* ── FILA SUPERIOR DEL HÉROE CON QR ── */
+    .hero-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(18px, 2.8vw, 38px);
+      margin-bottom: 8px;
+    }
+    .hero-qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(145deg, rgba(0, 28, 85, 0.85), rgba(0, 12, 40, 0.90));
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      border-radius: 16px;
+      padding: 9px 12px 8px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.7);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeSlideUp 1s ease both;
+    }
+    .hero-qr-box:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 32px rgba(255, 215, 0, 0.45), 0 10px 30px rgba(0, 0, 0, 0.85);
+      border-color: var(--dorado);
+    }
+    .hero-qr-frame {
+      background: #FFFFFF;
+      padding: 5px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+    .hero-qr-img {
+      width: clamp(90px, 8vw, 130px);
+      height: clamp(90px, 8vw, 130px);
+      object-fit: contain;
+      display: block;
+      border-radius: 4px;
+    }
+    .hero-qr-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 7px;
+      font-family: var(--font-body);
+      font-size: clamp(0.62rem, 0.72vw, 0.72rem);
+      font-weight: 600;
+      color: var(--dorado-suave);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-years-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .years-number {
       font-family: var(--font-title);
-      font-size: clamp(5.5rem, 13vw, 10rem);
+      font-size: clamp(5.2rem, 11.5vw, 9.4rem);
       font-weight: 900;
       line-height: 0.88;
       background: linear-gradient(155deg,
@@ -174,7 +234,7 @@
       letter-spacing: 0.34em;
       text-transform: uppercase;
       margin-top: 6px;
-      margin-bottom: 22px;
+      margin-bottom: 8px;
     }
 
     .main-title {
@@ -692,8 +752,21 @@
 
     <!-- H&eacute;roe -->
     <div id="hero">
-      <div class="years-number" aria-label="205 a&ntilde;os de independencia">205</div>
-      <div class="years-label">A&ntilde;os de Independencia</div>
+      <div class="hero-top-row">
+        <div class="hero-qr-box" title="Escanea con tu celular para enviar tu mensaje">
+          <div class="hero-qr-frame">
+            <img src="../Mapas/qr/qr_DCE.jpg" alt="Código QR para enviar mensajes" class="hero-qr-img" />
+          </div>
+          <div class="hero-qr-tag">
+            <span>&#128241; Escanea aqu&iacute;</span>
+          </div>
+        </div>
+
+        <div class="hero-years-box">
+          <div class="years-number" aria-label="205 a&ntilde;os de independencia">205</div>
+          <div class="years-label">A&ntilde;os de Independencia</div>
+        </div>
+      </div>
       <h2 class="main-title">Guatemala</h2>
       <p class="main-subtitle">Tierra de la Eterna Primavera</p>
       <div class="deco-line" aria-hidden="true"></div>
