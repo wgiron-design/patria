@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Deja tu Mensaje — Guatemala 205</title>
+  <meta name="description" content="Comparte tu mensaje de independencia en el evento Fiestas Patrias 205 Aniversario de Guatemala." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:        #003F87;
+      --azul-mid:    #1565C0;
+      --azul-vivo:   #1E88E5;
+      --blanco:      #FFFFFF;
+      --dorado:      #FFD700;
+      --dorado-suave:#FFF9C4;
+      --dorado-dark: #C8960C;
+      --verde:       #2E7D32;
+      --fondo:       #000E2A;
+      --card-bg:     rgba(0,20,60,0.75);
+      --border:      rgba(255,215,0,0.25);
+      --font-title:  'Cinzel', serif;
+      --font-body:   'Inter', sans-serif;
+    }
+
+    html {
+      min-height: 100%;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(0,80,200,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(0,50,140,0.28) 0%, transparent 55%),
+        var(--fondo);
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--blanco);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+
+    /* Partículas sutil fondo */
+    .star { position: fixed; border-radius: 50%; pointer-events: none; }
+
+    /* ── LOGO / HEADER ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 32px;
+      animation: fadeDown 0.8s ease both;
+    }
+    .badge-205 {
+      display: inline-block;
+      font-family: var(--font-title);
+      font-size: 3.8rem;
+      font-weight: 700;
+      background: linear-gradient(155deg, #FFFDE7 0%, var(--dorado) 45%, var(--dorado-dark) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 2px 18px rgba(255,200,0,0.5));
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .header-sub {
+      font-family: var(--font-title);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+    }
+    .header-flag { font-size: 1.6rem; margin-bottom: 6px; display: block; }
+
+    /* ── CARD ── */
+    .form-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .form-title {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      text-align: center;
+      color: var(--dorado);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .form-desc {
+      font-size: 0.78rem;
+      text-align: center;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    /* ── FIELDS ── */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 0.70rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.60);
+      margin-bottom: 7px;
+    }
+    .field label span.req { color: var(--dorado); margin-left: 2px; }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      background: rgba(0,30,80,0.55);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      color: var(--blanco);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(255,255,255,0.28); }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--dorado);
+      box-shadow: 0 0 0 3px rgba(255,215,0,0.14);
+    }
+    .field textarea {
+      resize: none; height: 110px; line-height: 1.55;
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23FFD700' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+    .field select option { background: #001540; }
+
+    /* contador de caracteres */
+    .char-count {
+      font-size: 0.62rem; color: rgba(255,255,255,0.32);
+      text-align: right; margin-top: 5px; transition: color 0.2s;
+    }
+    .char-count.warn { color: #FFB300; }
+    .char-count.over { color: #EF5350; }
+
+    /* ── BOTÓN ── */
+    #btn-enviar {
+      width: 100%;
+      padding: 15px;
+      border: none; border-radius: 12px; cursor: pointer;
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFD700 0%, #C8960C 100%);
+      color: #0A0A0A;
+      box-shadow: 0 6px 24px rgba(255,200,0,0.38);
+      transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+      margin-top: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    #btn-enviar:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(255,200,0,0.52);
+    }
+    #btn-enviar:active:not(:disabled) { transform: translateY(0); }
+    #btn-enviar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.25);
+      border-top-color: #0A0A0A;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    #btn-enviar.loading .spinner { display: block; }
+    #btn-enviar.loading .btn-text { display: none; }
+
+    /* ── ESTADO DE ÉXITO ── */
+    #success-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      padding: 10px 0;
+    }
+    .success-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #2E7D32, #4CAF50);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 0 32px rgba(76,175,80,0.5);
+      animation: pop 0.5s cubic-bezier(0.36,0.07,0.19,0.97) both;
+    }
+    .success-title {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      color: var(--dorado);
+    }
+    .success-sub {
+      font-size: 0.82rem; color: rgba(255,255,255,0.60);
+      line-height: 1.6; max-width: 280px;
+    }
+    .btn-otro {
+      margin-top: 10px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: rgba(255,255,255,0.70);
+      border-radius: 10px; padding: 11px 24px;
+      font-family: var(--font-body); font-size: 0.82rem;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-otro:hover { border-color: var(--dorado); color: var(--dorado); }
+
+    /* ── TICKET DE CÓDIGO ── */
+    .ticket-box {
+      background: linear-gradient(135deg, rgba(0, 40, 110, 0.75), rgba(0, 15, 50, 0.85));
+      border: 2px dashed var(--dorado);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin: 12px 0 6px;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.22);
+      position: relative;
+    }
+    .ticket-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 4px;
+    }
+    .ticket-code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: var(--dorado);
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.65);
+      margin: 6px 0 10px;
+      user-select: all;
+    }
+    .ticket-copy-btn {
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid var(--dorado);
+      color: var(--dorado-suave);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .ticket-copy-btn:hover {
+      background: rgba(255, 215, 0, 0.3);
+      transform: scale(1.04);
+    }
+    .ticket-hint {
+      font-size: 0.70rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    /* ── ERROR ── */
+    #error-msg {
+      display: none; margin-top: 12px;
+      background: rgba(239,83,80,0.15);
+      border: 1px solid rgba(239,83,80,0.35);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.78rem; color: #EF9A9A; line-height: 1.5;
+    }
+
+    /* ── SEPARADOR DECORATIVO ── */
+    .deco { display: flex; align-items: center; gap: 10px; margin: 22px 0; }
+    .deco-line { flex: 1; height: 1px; background: var(--border); }
+    .deco-star { color: var(--dorado); font-size: 0.8rem; opacity: 0.6; }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pop {
+      0%  { transform: scale(0.5); opacity: 0; }
+      70% { transform: scale(1.15); }
+      100%{ transform: scale(1);   opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="page-header">
+  <span class="header-flag" aria-hidden="true">&#127468;&#127481;</span>
+  <div class="badge-205">205</div>
+  <p class="header-sub">Aniversario de Independencia</p>
+</header>
+
+<!-- FORMULARIO -->
+<div class="form-card" id="form-card">
+
+  <h1 class="form-title">Deja tu Mensaje</h1>
+  <p class="form-desc">Tu mensaje aparecer&aacute; en la pantalla del evento.<br>&#161;Comp&aacute;rtelo con todos! &#127881;</p>
+
+  <div class="deco" aria-hidden="true">
+    <div class="deco-line"></div>
+    <span class="deco-star">&#10022;</span>
+    <div class="deco-line"></div>
+  </div>
+
+  <form id="msg-form" novalidate>
+
+    <div class="field">
+      <label for="f-nombre">Tu nombre <span class="req">*</span></label>
+      <input id="f-nombre" type="text" name="nombre"
+             placeholder="Ej. Mar&iacute;a Garc&iacute;a"
+             maxlength="120" autocomplete="name" required />
+    </div>
+
+    <div class="field">
+      <label for="f-departamento">Departamento</label>
+      <select id="f-departamento" name="departamento">
+        <option value="">-- Selecciona tu departamento --</option>
+        <option>Alta Verapaz</option>
+        <option>Baja Verapaz</option>
+        <option>Chimaltenango</option>
+        <option>Chiquimula</option>
+        <option>El Progreso</option>
+        <option>Escuintla</option>
+        <option>Guatemala</option>
+        <option>Huehuetenango</option>
+        <option>Izabal</option>
+        <option>Jalapa</option>
+        <option>Jutiapa</option>
+        <option>Pet&eacute;n</option>
+        <option>Quetzaltenango</option>
+        <option>Quich&eacute;</option>
+        <option>Retalhuleu</option>
+        <option>Sacatep&eacute;quez</option>
+        <option>San Marcos</option>
+        <option>Santa Rosa</option>
+        <option>Solol&aacute;</option>
+        <option>Suchitep&eacute;quez</option>
+        <option>Totonicap&aacute;n</option>
+        <option>Zacapa</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="f-mensaje">Tu mensaje <span class="req">*</span></label>
+      <textarea id="f-mensaje" name="mensaje"
+                placeholder="&#161;Escribe tu mensaje de independencia aqu&iacute;!"
+                maxlength="800" required></textarea>
+      <div class="char-count" id="char-count">0 / 800</div>
+    </div>
+
+    <button type="submit" id="btn-enviar">
+      <span class="btn-text">&#127988; Enviar Mensaje</span>
+      <div class="spinner" aria-hidden="true"></div>
+    </button>
+
+    <div id="error-msg" role="alert"></div>
+
+  </form>
+
+  <!-- Estado de éxito -->
+  <div id="success-panel" role="status" aria-live="polite">
+    <div class="success-icon" aria-hidden="true">&#10003;</div>
+    <div class="success-title">&#161;Mensaje enviado con &eacute;xito!</div>
+    <p class="success-sub">Tu mensaje aparecer&aacute; en la pantalla del evento en unos momentos. &#127881;</p>
+
+    <!-- Caja de Código de Validación -->
+    <div class="ticket-box">
+      <div class="ticket-label">Tu C&oacute;digo de Validaci&oacute;n</div>
+      <div class="ticket-code" id="ticket-code">-----</div>
+      <button type="button" class="ticket-copy-btn" id="btn-copy-code">
+        <span id="copy-icon">&#128203;</span>
+        <span id="copy-text">Copiar C&oacute;digo</span>
+      </button>
+      <div class="ticket-hint">Guarda este c&oacute;digo o t&oacute;male captura para verificar tu participaci&oacute;n con los organizadores.</div>
+    </div>
+
+    <button class="btn-otro" id="btn-otro">Enviar otro mensaje</button>
+  </div>
+
+</div>
+
+<script>
+'use strict';
+
+// ── CONFIGURACIÓN ─────────────────────────────────────────
+const API_URL = 'https://conexion-a-base-de-datos-neon.vercel.app/api/mensajes';
+
+// ── CONTADOR DE CARACTERES ────────────────────────────────
+const textarea  = document.getElementById('f-mensaje');
+const charCount = document.getElementById('char-count');
+textarea.addEventListener('input', () => {
+  const n = textarea.value.length;
+  charCount.textContent = n + ' / 800';
+  charCount.classList.toggle('warn', n > 600 && n <= 780);
+  charCount.classList.toggle('over', n > 780);
+});
+
+// ── ENVÍO DEL FORMULARIO ──────────────────────────────────
+const form         = document.getElementById('msg-form');
+const btn          = document.getElementById('btn-enviar');
+const errorMsg     = document.getElementById('error-msg');
+const successPanel = document.getElementById('success-panel');
+const btnOtro      = document.getElementById('btn-otro');
+const ticketCode   = document.getElementById('ticket-code');
+const btnCopyCode  = document.getElementById('btn-copy-code');
+const copyIcon     = document.getElementById('copy-icon');
+const copyText     = document.getElementById('copy-text');
+
+btnCopyCode.addEventListener('click', () => {
+  const code = ticketCode.textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(() => {
+      copyIcon.textContent = '\u2713';
+      copyText.textContent = '\u00A1Copiado!';
+      setTimeout(() => {
+        copyIcon.textContent = '\u{1F4CB}';
+        copyText.textContent = 'Copiar C\u00F3digo';
+      }, 2500);
+    }).catch(() => {});
+  }
+});
+
+function setLoading(on) {
+  btn.disabled = on;
+  btn.classList.toggle('loading', on);
+}
+function showError(msg) {
+  errorMsg.textContent = msg;
+  errorMsg.style.display = 'block';
+}
+function clearError() {
+  errorMsg.style.display = 'none';
+  errorMsg.textContent = '';
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearError();
+
+  const nombre      = document.getElementById('f-nombre').value.trim();
+  const departamento= document.getElementById('f-departamento').value;
+  const mensaje     = textarea.value.trim();
+
+  if (!nombre)   return showError('Por favor escribe tu nombre.');
+  if (!mensaje)  return showError('El mensaje no puede estar vacío.');
+  if (mensaje.length > 800) return showError('El mensaje es demasiado largo (máx. 800 caracteres).');
+
+  if (!API_URL) {
+    // Modo de prueba local: simular código de 5 caracteres
+    const simChars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    let simCode = '';
+    for (let i = 0; i < 5; i++) simCode += simChars[Math.floor(Math.random() * simChars.length)];
+    ticketCode.textContent = simCode;
+    form.style.display = 'none';
+    successPanel.style.display = 'flex';
+    return;
+  }
+
+  setLoading(true);
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, departamento, mensaje }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error al enviar');
+
+    const codigoGenerado = data.codigo || (data.mensaje && data.mensaje.codigo) || '00523';
+    ticketCode.textContent = codigoGenerado;
+
+    form.style.display = 'none';
+    successPanel.style.display = 'flex';
+  } catch (err) {
+    showError('No se pudo enviar el mensaje. Intenta de nuevo. (' + err.message + ')');
+  } finally {
+    setLoading(false);
+  }
+});
+
+btnOtro.addEventListener('click', () => {
+  form.reset();
+  charCount.textContent = '0 / 800';
+  charCount.className = 'char-count';
+  form.style.display = 'block';
+  successPanel.style.display = 'none';
+  document.getElementById('f-nombre').focus();
+});
+</script>
+
+</body>
+</html>

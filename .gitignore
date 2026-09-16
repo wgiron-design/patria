@@ -1,0 +1,31 @@
+# Credenciales — NUNCA al repositorio
+[Bb][Dd]/
+BD/
+bd/
+*parametros*
+.env
+.env.local
+.env*.local
+
+# Archivos pesados que exceden límites de GitHub (>100MB)
+*.tif
+*.TIF
+*.tiff
+
+# Node
+node_modules/
+.vercel/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scripts de generacion
+gen_*.py
+generate_3d_maps.py
+test_render.py

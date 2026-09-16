@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>205 Aniversario de Independencia — Guatemala</title>
+  <meta name="description" content="Pantalla principal del evento Fiestas Patrias 205 Aniversario de Independencia de Guatemala." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       RESET & DESIGN TOKENS
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul:         #003F87;
+      --azul-claro:   #1565C0;
+      --azul-vivo:    #1E88E5;
+      --blanco:       #FFFFFF;
+      --dorado:       #FFD700;
+      --dorado-claro: #FFF176;
+      --dorado-oscuro:#C8960C;
+      --verde-gt:     #2E7D32;
+      --overlay:      rgba(0,15,40,0.62);
+      --font-title:  'Cinzel Decorative', serif;
+      --font-display:'Cinzel', serif;
+      --font-body:   'Inter', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: #000510;
+      font-family: var(--font-body);
+      color: var(--blanco);
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       FONDO
+    ══════════════════════════════════════════════ */
+    #bg {
+      position: fixed; inset: 0;
+      background-image: url('../Mapas/DCE/fondo_independencia_4k.jpg');
+      background-size: cover;
+      background-position: center top;
+      filter: brightness(0.70) saturate(1.15);
+      transform: scale(1.03);
+      z-index: 0;
+    }
+    #bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,20,60,0.55) 0%,
+        rgba(0,15,40,0.62) 45%,
+        rgba(0,8,26,0.82)  100%
+      );
+    }
+
+    /* ═══════════════════════════════════════════
+       LAYOUT PRINCIPAL
+    ══════════════════════════════════════════════ */
+    #app {
+      position: relative; z-index: 10;
+      width: 100vw; height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas: "header" "main" "footer";
+    }
+
+    /* ═══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════════ */
+    #header {
+      grid-area: header;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px 12px;
+      border-bottom: 2px solid rgba(255,215,0,0.28);
+      background: linear-gradient(135deg,
+        rgba(0,40,120,0.72) 0%,
+        rgba(0,20,70,0.58) 100%);
+      backdrop-filter: blur(8px);
+    }
+
+    .hdr-left { display: flex; align-items: center; gap: 18px; }
+
+    .flag-stripe {
+      width: 9px; height: 60px; border-radius: 5px;
+      background: linear-gradient(to bottom,
+        var(--azul) 33%, var(--blanco) 33% 66%, var(--azul) 66%);
+      box-shadow: 0 0 14px rgba(30,136,229,0.75);
+    }
+
+    .hdr-title h1 {
+      font-family: var(--font-title);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      color: var(--dorado);
+      text-shadow: 0 0 28px rgba(255,215,0,0.5), 0 2px 5px rgba(0,0,0,0.9);
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+    }
+    .hdr-title p {
+      font-family: var(--font-display);
+      font-size: clamp(0.6rem, 1vw, 0.84rem);
+      color: rgba(255,255,255,0.70);
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    #clock-block { text-align: right; }
+    #clock-time {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+      font-weight: 700;
+      color: var(--dorado);
+      text-shadow: 0 0 22px rgba(255,215,0,0.65);
+      letter-spacing: 0.06em;
+    }
+    #clock-date {
+      font-family: var(--font-body);
+      font-size: clamp(0.58rem, 0.85vw, 0.76rem);
+      color: rgba(255,255,255,0.58);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+       ÁREA CENTRAL
+    ══════════════════════════════════════════════ */
+    #main {
+      grid-area: main;
+      display: grid;
+      grid-template-columns: 1fr 585px;
+      overflow: hidden;
+    }
+
+    /* — Panel izquierdo: héroe —— */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 48px 20px 56px;
+    }
+
+    .years-number {
+      font-family: var(--font-title);
+      font-size: clamp(5.5rem, 13vw, 10rem);
+      font-weight: 900;
+      line-height: 0.88;
+      background: linear-gradient(155deg,
+        #FFFDE7 0%, #FFD700 38%, #C8960C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 4px 28px rgba(255,200,0,0.55));
+      animation: pulse-glow 3.6s ease-in-out infinite;
+    }
+    .years-label {
+      font-family: var(--font-display);
+      font-size: clamp(0.65rem, 1.3vw, 1rem);
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      margin-bottom: 22px;
+    }
+
+    .main-title {
+      font-family: var(--font-title);
+      font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+      color: var(--blanco);
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-shadow:
+        0 0 40px rgba(255,215,0,0.40),
+        0 3px 8px rgba(0,0,0,0.90);
+      margin-bottom: 6px;
+      animation: fadeSlideUp 1.2s ease both;
+    }
+    .main-subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(0.72rem, 1.4vw, 1.1rem);
+      color: var(--dorado-claro);
+      text-align: center;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+      margin-bottom: 28px;
+      animation: fadeSlideUp 1.4s ease both;
+    }
+
+    .deco-line {
+      width: 260px; height: 2px;
+      background: linear-gradient(90deg,
+        transparent, var(--dorado) 30%, var(--dorado-claro) 50%, var(--dorado) 70%, transparent);
+      border-radius: 2px;
+      box-shadow: 0 0 14px rgba(255,215,0,0.4);
+      margin-bottom: 26px;
+    }
+
+    #frase-box {
+      max-width: 660px;
+      background: rgba(0,30,90,0.48);
+      border: 1px solid rgba(255,215,0,0.22);
+      border-radius: 16px;
+      padding: 22px 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 36px rgba(0,0,0,0.45),
+                  inset 0 1px 0 rgba(255,255,255,0.06);
+      min-height: 96px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #frase-text {
+      font-family: var(--font-display);
+      font-size: clamp(0.82rem, 1.4vw, 1.1rem);
+      color: rgba(255,255,255,0.95);
+      line-height: 1.68;
+      font-style: italic;
+      text-align: center;
+      opacity: 1;
+      transition: opacity 0.7s ease;
+    }
+    #frase-text.fade-out { opacity: 0; }
+
+    /* — Panel derecho — */
+    #side-panel {
+      display: flex;
+      flex-direction: column;
+      background: rgba(0,10,35,0.62);
+      border-left: 1px solid rgba(255,215,0,0.16);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    /* Mapa 3D */
+    #map-section {
+      flex: 0 0 auto;
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(255,215,0,0.13);
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .map-label {
+      font-family: var(--font-display);
+      font-size: 0.65rem; letter-spacing: 0.26em;
+      text-transform: uppercase; color: var(--dorado);
+      margin-bottom: 8px; opacity: 0.85;
+    }
+    #map-img {
+      width: 100%; max-height: 230px;
+      object-fit: contain; border-radius: 12px;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.8));
+      transition: opacity 0.5s ease;
+    }
+    #dept-select {
+      width: 100%; margin-top: 12px;
+      padding: 8px 36px 8px 14px;
+      background: rgba(0,30,80,0.72);
+      border: 1px solid rgba(255,215,0,0.28);
+      border-radius: 8px;
+      color: var(--blanco);
+      font-family: var(--font-body); font-size: 0.82rem;
+      cursor: pointer; outline: none;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23FFD700' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: border-color 0.3s;
+    }
+    #dept-select:hover, #dept-select:focus {
+      border-color: rgba(255,215,0,0.60);
+    }
+    #dept-select option { background: #001A4D; }
+
+    /* Mensajes */
+    #msg-section {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    }
+    #msg-header {
+      padding: 14px 20px 10px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .msg-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4CAF50;
+      box-shadow: 0 0 9px #4CAF50;
+      animation: blink 2s ease-in-out infinite;
+    }
+    #msg-header h3 {
+      font-family: var(--font-display);
+      font-size: 0.74rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+    }
+    #msg-count {
+      margin-left: auto;
+      font-family: var(--font-body); font-size: 0.68rem;
+      background: rgba(255,215,0,0.16); color: var(--dorado);
+      border-radius: 20px; padding: 2px 10px; font-weight: 600;
+    }
+
+    #msg-list {
+      flex: 1; overflow-y: auto;
+      padding: 12px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      scroll-behavior: smooth;
+    }
+    #msg-list::-webkit-scrollbar { width: 5px; }
+    #msg-list::-webkit-scrollbar-thumb {
+      background: rgba(255,215,0,0.22); border-radius: 4px;
+    }
+
+    .msg-card {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px; padding: 12px 14px;
+      animation: slideIn 0.5s ease both;
+      transition: background 0.3s;
+    }
+    .msg-card.new-msg {
+      border-color: rgba(255,215,0,0.38);
+      background: rgba(255,215,0,0.065);
+    }
+    .msg-author {
+      font-family: var(--font-display);
+      font-size: 0.78rem; color: var(--dorado-claro);
+      font-weight: 600; margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .msg-dept-tag {
+      font-size: 0.62rem;
+      background: rgba(0,63,135,0.60);
+      border: 1px solid rgba(30,136,229,0.38);
+      color: #90CAF9; border-radius: 20px;
+      padding: 2px 8px; font-family: var(--font-body); font-weight: 500;
+    }
+    .msg-body {
+      font-family: var(--font-body);
+      font-size: 0.82rem; color: rgba(255,255,255,0.90); line-height: 1.55;
+    }
+    .msg-time {
+      font-size: 0.62rem; color: rgba(255,255,255,0.36); margin-top: 6px;
+    }
+
+    #msg-empty {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 10px; padding: 20px; text-align: center; opacity: 0.4;
+    }
+    #msg-empty svg { width: 38px; height: 38px; }
+    #msg-empty p {
+      font-family: var(--font-display); font-size: 0.70rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER TICKER
+    ══════════════════════════════════════════════ */
+    #footer {
+      grid-area: footer;
+      background: linear-gradient(90deg,
+        rgba(0,40,120,0.92) 0%,
+        rgba(0,55,140,0.88) 50%,
+        rgba(0,40,120,0.92) 100%);
+      border-top: 2px solid rgba(255,215,0,0.32);
+      padding: 9px 0; overflow: hidden; position: relative;
+    }
+    #footer::before, #footer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px;
+      z-index: 2; pointer-events: none;
+    }
+    #footer::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(0,40,120,0.96), transparent);
+    }
+    #footer::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(0,40,120,0.96), transparent);
+    }
+    .ticker-flag {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); z-index: 4; font-size: 1.35rem;
+    }
+    #ticker-track {
+      display: flex; align-items: center; white-space: nowrap;
+      animation: ticker-scroll 90s linear infinite;
+      padding-left: 60px;
+    }
+    #ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      display: inline-flex; align-items: center; gap: 7px;
+      margin-right: 72px;
+      font-family: var(--font-display);
+      font-size: clamp(0.70rem, 1.05vw, 0.85rem);
+      color: rgba(255,255,255,0.88); letter-spacing: 0.04em;
+    }
+    .ticker-sep { color: var(--dorado); opacity: 0.72; font-size: 0.95rem; }
+
+    /* ═══════════════════════════════════════════
+       CANVAS PARTÍCULAS
+    ══════════════════════════════════════════════ */
+    #particles-canvas {
+      position: fixed; inset: 0; z-index: 5; pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       ANIMACIONES
+    ══════════════════════════════════════════════ */
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 4px 26px rgba(255,200,0,0.52)); }
+      50%       { filter: drop-shadow(0 4px 44px rgba(255,230,0,0.88)); }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.25; }
+    }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTROL DE SONIDO
+    ══════════════════════════════════════════════ */
+    .hdr-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .sound-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,215,0,0.5);
+      background: rgba(0, 30, 80, 0.75);
+      color: var(--dorado-suave);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 14px rgba(255,215,0,0.22);
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+    .sound-btn:hover {
+      background: rgba(0, 50, 130, 0.9);
+      border-color: var(--dorado);
+      box-shadow: 0 0 22px rgba(255,215,0,0.45);
+      transform: translateY(-1px);
+    }
+    .sound-btn.muted {
+      border-color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.55);
+      background: rgba(0, 15, 40, 0.6);
+      box-shadow: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       MODAL DE CELEBRACIÓN CON ANIMACIÓN GIF
+    ══════════════════════════════════════════════ */
+    #celebration-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 10, 32, 0.72);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #celebration-modal.visible {
+      display: flex;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .celebration-card {
+      position: relative;
+      background: linear-gradient(150deg, rgba(0, 35, 105, 0.97), rgba(0, 14, 45, 0.98));
+      border: 2px solid var(--dorado);
+      border-radius: 22px;
+      box-shadow: 0 0 60px rgba(255, 215, 0, 0.5), 0 25px 65px rgba(0, 0, 0, 0.92);
+      max-width: 530px;
+      width: 92%;
+      padding: 26px 24px 20px;
+      text-align: center;
+      transform: scale(0.82) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+    }
+    #celebration-modal.visible .celebration-card {
+      transform: scale(1) translateY(0);
+    }
+    .celebration-close-btn {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .celebration-close-btn:hover { color: var(--dorado); }
+    .celebration-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, rgba(255,215,0,0.25), rgba(255,215,0,0.08));
+      border: 1px solid var(--dorado);
+      border-radius: 30px;
+      padding: 6px 18px;
+      color: var(--dorado);
+      font-family: var(--font-title);
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      animation: pulse-glow 2s infinite;
+    }
+    .celebration-gif-wrap {
+      width: 100%;
+      height: 185px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(0, 10, 30, 0.55);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+    .celebration-gif-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .celebration-sender {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .celebration-dept {
+      font-family: var(--font-body);
+      font-size: 0.76rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #1565C0, #0D47A1);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: var(--dorado-suave);
+      padding: 3px 12px;
+      border-radius: 14px;
+    }
+    .celebration-msg {
+      font-family: var(--font-body);
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.94);
+      margin-bottom: 16px;
+      font-style: italic;
+      max-height: 110px;
+      overflow-y: auto;
+      padding: 0 8px;
+    }
+    .celebration-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .celebration-progress-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--dorado), #FFF);
+      transform-origin: left;
+    }
+  </style>
+</head>
+<body>
+
+<div id="bg" aria-hidden="true"></div>
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- MODAL DE CELEBRACIÓN CON ANIMACIÓN GIF -->
+<div id="celebration-modal" role="dialog" aria-modal="true" aria-label="Celebración de nuevo mensaje">
+  <div class="celebration-card">
+    <button class="celebration-close-btn" id="celebration-close" aria-label="Cerrar">&times;</button>
+    <div class="celebration-badge">&#127881; &iexcl;Nuevo Mensaje Patrio! &#127881;</div>
+    <div class="celebration-gif-wrap">
+      <img id="celebration-gif" src="../animaciones/giphy.gif" alt="Animación festiva" />
+    </div>
+    <div class="celebration-sender">
+      <span id="celebration-author">Invitado</span>
+      <span id="celebration-dept" class="celebration-dept">Guatemala</span>
+    </div>
+    <p id="celebration-msg" class="celebration-msg">&ldquo;&rdquo;</p>
+    <div class="celebration-progress">
+      <div id="celebration-progress-bar" class="celebration-progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<div id="app" role="main">
+
+  <!-- HEADER -->
+  <header id="header">
+    <div class="hdr-left">
+      <div class="flag-stripe" aria-hidden="true"></div>
+      <div class="hdr-title">
+        <h1>205 Aniversario de Independencia</h1>
+        <p>Rep&uacute;blica de Guatemala &middot; 15 de septiembre de 1821</p>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <button id="sound-btn" class="sound-btn" title="Activar o silenciar sonido de celebración">
+        <span id="sound-icon">&#128266;</span>
+        <span id="sound-label">Sonido: Activo</span>
+      </button>
+      <div id="clock-block" aria-live="polite" aria-atomic="true">
+        <div id="clock-time">00:00:00</div>
+        <div id="clock-date">Cargando&hellip;</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <section id="main">
+
+    <!-- H&eacute;roe -->
+    <div id="hero">
+      <div class="years-number" aria-label="205 a&ntilde;os de independencia">205</div>
+      <div class="years-label">A&ntilde;os de Independencia</div>
+      <h2 class="main-title">Guatemala</h2>
+      <p class="main-subtitle">Tierra de la Eterna Primavera</p>
+      <div class="deco-line" aria-hidden="true"></div>
+      <div id="frase-box" role="region" aria-label="Frase patri&oacute;tica">
+        <p id="frase-text">&ldquo;205 a&ntilde;os de independencia, identidad y orgullo de ser guatemaltecos.&rdquo;</p>
+      </div>
+    </div>
+
+    <!-- Panel lateral -->
+    <aside id="side-panel">
+
+      <section id="map-section" aria-label="Mapa de Guatemala">
+        <div class="map-label">Mapa de Guatemala</div>
+        <img id="map-img"
+             src="../Mapas/3D_Guatemala/00_Guatemala_General_3D.jpg"
+             alt="Mapa 3D de Guatemala" loading="eager" />
+        <label for="dept-select" class="sr-only">Seleccionar departamento</label>
+        <select id="dept-select"></select>
+      </section>
+
+      <section id="msg-section" aria-labelledby="msg-header-lbl">
+        <div id="msg-header">
+          <div class="msg-dot" aria-hidden="true"></div>
+          <h3 id="msg-header-lbl">Mensajes del Evento</h3>
+          <span id="msg-count" aria-live="polite">0</span>
+        </div>
+        <div id="msg-list" role="log" aria-live="polite" aria-relevant="additions"></div>
+        <div id="msg-empty" aria-label="Sin mensajes a&uacute;n">
+          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.4">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Los mensajes de los invitados<br>aparecer&aacute;n aqu&iacute;</p>
+        </div>
+      </section>
+
+    </aside>
+  </section>
+
+  <!-- FOOTER TICKER -->
+  <footer id="footer" aria-label="Frases patri&oacute;ticas">
+    <span class="ticker-flag" aria-hidden="true">&#127468;&#127481;</span>
+    <div id="ticker-track" role="marquee"></div>
+  </footer>
+
+</div>
+
+<script>
+'use strict';
+
+/* ── CONFIGURACIÓN ────────────────────────────────────── */
+const CONFIG = {
+  apiUrl:       'https://conexion-a-base-de-datos-neon.vercel.app/api/mensajes',
+  pollInterval: 9000,        // ms entre polling de mensajes
+  fraseInterval:7500,        // ms entre rotación de frases
+  mapBasePath:  '../Mapas/3D_Guatemala/',
+};
+
+/* ── FRASES ───────────────────────────────────────────── */
+const FRASES = [
+  "205 años de independencia, identidad y orgullo de ser guatemaltecos.",
+  "Guatemala: 205 años construyendo historia, identidad y futuro.",
+  "205 años de una nación que sigue construyendo su futuro.",
+  "Celebramos 205 años de historia, diversidad y esperanza.",
+  "205 años de Guatemala: raíces que nos unen y sueños que nos impulsan.",
+  "Nuestra historia nos identifica, nuestro presente nos compromete y nuestro futuro nos inspira.",
+  "205 años de independencia: honrando nuestra historia y construyendo el futuro.",
+  "Guatemala, 205 años de identidad, cultura y tradición.",
+  "¡Viva Guatemala! 205 años de orgullo, identidad y libertad.",
+  "Guatemala se lleva en el corazón. ¡Felices 205 años de independencia!",
+  "205 años y una misma tierra que nos une: Guatemala.",
+  "Orgullosamente guatemaltecos, hoy y siempre. ¡205 años!",
+  "De nuestras raíces nace nuestro orgullo. ¡Viva Guatemala!",
+  "205 años de una tierra llena de historia, cultura y grandeza.",
+  "Guatemala: tierra de colores, culturas, tradiciones y sueños.",
+  "Que viva nuestra historia, que viva nuestra gente, que viva Guatemala.",
+  "Guatemala es memoria, raíces, presente y esperanza. Hoy celebramos 205 años.",
+  "Una historia que comenzó hace 205 años y que seguimos escribiendo juntos.",
+  "205 años después, seguimos llevando a Guatemala en el corazón.",
+  "Celebrar Guatemala es celebrar nuestras raíces y la diversidad que nos hace únicos.",
+  "205 años de identidad y diversidad.",
+  "Una historia. Una nación. Guatemala.",
+  "Orgullo de ser guatemalteco.",
+  "¡Viva Guatemala!",
+];
+
+/* ── DEPARTAMENTOS ────────────────────────────────────── */
+const DEPARTAMENTOS = [
+  { d:"Guatemala (General)",  f:"00_Guatemala_General_3D.jpg" },
+  { d:"Alta Verapaz",         f:"01_Alta_Verapaz_3D.jpg" },
+  { d:"Baja Verapaz",         f:"02_Baja_Verapaz_3D.jpg" },
+  { d:"Chimaltenango",        f:"03_Chimaltenango_3D.jpg" },
+  { d:"Chiquimula",           f:"04_Chiquimula_3D.jpg" },
+  { d:"El Progreso",          f:"05_El_Progreso_3D.jpg" },
+  { d:"Escuintla",            f:"06_Escuintla_3D.jpg" },
+  { d:"Guatemala",            f:"07_Guatemala_3D.jpg" },
+  { d:"Huehuetenango",        f:"08_Huehuetenango_3D.jpg" },
+  { d:"Izabal",               f:"09_Izabal_3D.jpg" },
+  { d:"Jalapa",               f:"10_Jalapa_3D.jpg" },
+  { d:"Jutiapa",              f:"11_Jutiapa_3D.jpg" },
+  { d:"Petén",                f:"12_Peten_3D.jpg" },
+  { d:"Quetzaltenango",       f:"13_Quetzaltenango_3D.jpg" },
+  { d:"Quiché",               f:"14_Quiche_3D.jpg" },
+  { d:"Retalhuleu",           f:"15_Retalhuleu_3D.jpg" },
+  { d:"Sacatepéquez",         f:"16_Sacatepequez_3D.jpg" },
+  { d:"San Marcos",           f:"17_San_Marcos_3D.jpg" },
+  { d:"Santa Rosa",           f:"18_Santa_Rosa_3D.jpg" },
+  { d:"Sololá",               f:"19_Solola_3D.jpg" },
+  { d:"Suchitepéquez",        f:"20_Suchitepequez_3D.jpg" },
+  { d:"Totonicapán",          f:"21_Totonicapan_3D.jpg" },
+  { d:"Zacapa",               f:"22_Zacapa_3D.jpg" },
+];
+
+/* ── MENSAJES DEMO ────────────────────────────────────── */
+const DEMO_MSGS = [
+  { id:1, nombre:"María García",   departamento:"Quetzaltenango", mensaje:"¡Feliz aniversario Guatemala! Orgullo de ser guatemalteca. 🇬🇹",        hora:"09:15" },
+  { id:2, nombre:"Carlos López",   departamento:"Alta Verapaz",   mensaje:"205 años de historia que nos llenan de orgullo. ¡Viva Guatemala!",       hora:"09:22" },
+  { id:3, nombre:"Ana Martínez",   departamento:"Petén",          mensaje:"Desde las selvas del Petén, felicitamos a nuestra hermosa nación. 🌿",    hora:"09:30" },
+  { id:4, nombre:"José Pérez",     departamento:"Huehuetenango",  mensaje:"¡Viva la independencia y nuestra cultura maya-guatemalteca! ✨",           hora:"09:41" },
+  { id:5, nombre:"Sofía Ramírez",  departamento:"Sacatepéquez",   mensaje:"Desde La Antigua, feliz aniversario a todos los guatemaltecos. 🏛️",      hora:"09:55" },
+];
+
+/* ── UTILIDADES ───────────────────────────────────────── */
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+function fmtTime(d) {
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+
+/* ── RELOJ ────────────────────────────────────────────── */
+const DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const MESES = ['enero','febrero','marzo','abril','mayo','junio',
+               'julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function updateClock() {
+  const n  = new Date();
+  const hh = String(n.getHours()).padStart(2,'0');
+  const mm = String(n.getMinutes()).padStart(2,'0');
+  const ss = String(n.getSeconds()).padStart(2,'0');
+  document.getElementById('clock-time').textContent = `${hh}:${mm}:${ss}`;
+  document.getElementById('clock-date').textContent =
+    `${DIAS[n.getDay()]}, ${n.getDate()} de ${MESES[n.getMonth()]} de ${n.getFullYear()}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* ── FRASES ROTATIVAS ─────────────────────────────────── */
+let fraseIdx = 0;
+const fraseEl = document.getElementById('frase-text');
+function nextFrase() {
+  fraseEl.classList.add('fade-out');
+  setTimeout(() => {
+    fraseIdx = (fraseIdx + 1) % FRASES.length;
+    fraseEl.textContent = `"${FRASES[fraseIdx]}"`;
+    fraseEl.classList.remove('fade-out');
+  }, 700);
+}
+setInterval(nextFrase, CONFIG.fraseInterval);
+
+/* ── SELECTOR DEPARTAMENTO + MAPA ─────────────────────── */
+(function initMap() {
+  const sel = document.getElementById('dept-select');
+  const img = document.getElementById('map-img');
+
+  DEPARTAMENTOS.forEach((dep, i) => {
+    const o = document.createElement('option');
+    o.value = i; o.textContent = dep.d;
+    sel.appendChild(o);
+  });
+
+  let autoCycle = true, cycleIdx = 0, cycleTimer;
+
+  function showDept(idx) {
+    const dep = DEPARTAMENTOS[idx];
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = CONFIG.mapBasePath + dep.f;
+      img.alt = 'Mapa 3D de ' + dep.d;
+      img.style.opacity = '1';
+    }, 450);
+  }
+
+  function startCycle() {
+    clearInterval(cycleTimer);
+    cycleTimer = setInterval(() => {
+      if (!autoCycle) return;
+      cycleIdx = (cycleIdx + 1) % DEPARTAMENTOS.length;
+      sel.value = cycleIdx;
+      showDept(cycleIdx);
+    }, 12000);
+  }
+  startCycle();
+
+  sel.addEventListener('change', () => {
+    autoCycle = false;
+    showDept(parseInt(sel.value, 10));
+    clearTimeout(window._autoResume);
+    window._autoResume = setTimeout(() => {
+      autoCycle = true;
+      cycleIdx = parseInt(sel.value, 10);
+    }, 30000);
+  });
+
+  img.style.transition = 'opacity 0.45s ease';
+})();
+
+/* ── SISTEMA DE AUDIO Y ANIMACIONES GIF ─────────────── */
+const SOUND_FILES = [
+  '../sonidos/storegraphic-crowd-cheers-sound-493596.mp3',
+  '../sonidos/freesound_community-claps-29454.mp3',
+  '../sonidos/storegraphic-crowd-cheering-314920.mp3',
+  '../sonidos/dragon-studio-wow-423653.mp3',
+  '../sonidos/storegraphic-crowd-cheers-314919.mp3'
+];
+
+const GIF_FILES = [
+  '../animaciones/giphy.gif',
+  '../animaciones/giphy (1).gif',
+  '../animaciones/giphy (2).gif',
+  '../animaciones/giphy (3).gif',
+  '../animaciones/giphy (4).gif',
+  '../animaciones/giphy (5).gif',
+  '../animaciones/giphy (6).gif',
+  '../animaciones/giphy (7).gif',
+  '../animaciones/giphy (8).gif',
+  '../animaciones/giphy (9).gif'
+];
+
+let soundEnabled = true;
+let audioUnlocked = false;
+let currentGifIdx = 0;
+let celebrationTimeout = null;
+let celebrationInterval = null;
+
+const soundBtn = document.getElementById('sound-btn');
+const soundIcon = document.getElementById('sound-icon');
+const soundLabel = document.getElementById('sound-label');
+
+const modal = document.getElementById('celebration-modal');
+const modalGif = document.getElementById('celebration-gif');
+const modalAuthor = document.getElementById('celebration-author');
+const modalDept = document.getElementById('celebration-dept');
+const modalMsg = document.getElementById('celebration-msg');
+const modalProgress = document.getElementById('celebration-progress-bar');
+const modalClose = document.getElementById('celebration-close');
+
+function updateSoundUI() {
+  if (soundEnabled) {
+    soundBtn.classList.remove('muted');
+    soundIcon.textContent = '\u{1F50A}';
+    soundLabel.textContent = 'Sonido: Activo';
+  } else {
+    soundBtn.classList.add('muted');
+    soundIcon.textContent = '\u{1F507}';
+    soundLabel.textContent = 'Silenciado';
+  }
+}
+
+soundBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  soundEnabled = !soundEnabled;
+  updateSoundUI();
+  if (soundEnabled) playCelebrationSound(0.4);
+});
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  document.removeEventListener('click', unlockAudio);
+  document.removeEventListener('keydown', unlockAudio);
+}
+document.addEventListener('click', unlockAudio);
+document.addEventListener('keydown', unlockAudio);
+
+function playCelebrationSound(vol = 0.85) {
+  if (!soundEnabled) return;
+  try {
+    const src = SOUND_FILES[Math.floor(Math.random() * SOUND_FILES.length)];
+    const audio = new Audio(src);
+    audio.volume = vol;
+    audio.play().catch(err => {
+      console.warn('Audio en espera de interacción del usuario:', err);
+    });
+  } catch (err) {
+    console.warn('Error reproduciendo sonido:', err);
+  }
+}
+
+function hideCelebration() {
+  modal.classList.remove('visible');
+  if (celebrationTimeout) clearTimeout(celebrationTimeout);
+  if (celebrationInterval) clearInterval(celebrationInterval);
+}
+modalClose.addEventListener('click', hideCelebration);
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) hideCelebration();
+});
+
+function triggerCelebration(msg) {
+  // 1. Sonido de celebración
+  playCelebrationSound();
+
+  // 2. GIF festivo aleatorio/rotativo
+  const gif = GIF_FILES[currentGifIdx % GIF_FILES.length];
+  currentGifIdx++;
+  modalGif.src = gif;
+
+  // 3. Texto del remitente y departamento
+  modalAuthor.textContent = msg.nombre || 'Invitado';
+  if (msg.departamento) {
+    modalDept.textContent = msg.departamento;
+    modalDept.style.display = 'inline-block';
+  } else {
+    modalDept.style.display = 'none';
+  }
+  modalMsg.textContent = `\u201C${msg.mensaje}\u201D`;
+
+  // 4. Ráfaga de confeti
+  if (typeof window.burstConfetti === 'function') {
+    window.burstConfetti(50);
+  }
+
+  // 5. Mostrar modal y animar barra de progreso (6.5 segundos)
+  const DURATION = 6500;
+  const start = Date.now();
+  modalProgress.style.transform = 'scaleX(1)';
+  modal.classList.add('visible');
+
+  if (celebrationTimeout) clearTimeout(celebrationTimeout);
+  if (celebrationInterval) clearInterval(celebrationInterval);
+
+  celebrationInterval = setInterval(() => {
+    const elapsed = Date.now() - start;
+    const remain = Math.max(0, 1 - (elapsed / DURATION));
+    modalProgress.style.transform = `scaleX(${remain})`;
+    if (remain <= 0) clearInterval(celebrationInterval);
+  }, 40);
+
+  celebrationTimeout = setTimeout(() => {
+    hideCelebration();
+  }, DURATION);
+}
+
+/* ── MENSAJES ─────────────────────────────────────────── */
+const knownIds = new Set();
+
+function renderMsg(msg, isNew) {
+  const list  = document.getElementById('msg-list');
+  const empty = document.getElementById('msg-empty');
+  const count = document.getElementById('msg-count');
+  empty.style.display = 'none';
+
+  const timeDisplay = msg.hora || (msg.created_at ? fmtTime(new Date(msg.created_at)) : fmtTime(new Date()));
+  const card = document.createElement('div');
+  card.className = 'msg-card' + (isNew ? ' new-msg' : '');
+  card.innerHTML = `
+    <div class="msg-author">
+      ${esc(msg.nombre)}
+      ${msg.departamento ? `<span class="msg-dept-tag">${esc(msg.departamento)}</span>` : ''}
+    </div>
+    <p class="msg-body">${esc(msg.mensaje)}</p>
+    <div class="msg-time">${esc(timeDisplay)}</div>
+  `;
+  list.insertBefore(card, list.firstChild);
+  count.textContent = document.querySelectorAll('.msg-card').length;
+  list.scrollTop = 0;
+
+  if (isNew) {
+    triggerCelebration(msg);
+    setTimeout(() => card.classList.remove('new-msg'), 6000);
+  }
+}
+
+function loadDemo() {
+  DEMO_MSGS.forEach((m, i) => {
+    setTimeout(() => { knownIds.add(m.id); renderMsg(m, false); }, i * 700);
+  });
+}
+
+let isFirstPoll = true;
+async function pollMsgs() {
+  if (!CONFIG.apiUrl) return;
+  try {
+    const res  = await fetch(CONFIG.apiUrl, { cache:'no-store' });
+    if (!res.ok) return;
+    const data = await res.json();
+    const nuevos = (data.mensajes || []).filter(m => !knownIds.has(m.id));
+    // En la primera carga, renderizamos del más viejo al más nuevo sin parpadeo
+    if (isFirstPoll) {
+      nuevos.slice().reverse().forEach(m => {
+        knownIds.add(m.id);
+        renderMsg(m, false);
+      });
+      isFirstPoll = false;
+    } else {
+      nuevos.forEach(m => {
+        knownIds.add(m.id);
+        renderMsg(m, true);
+      });
+    }
+  } catch(_) {}
+}
+
+if (CONFIG.apiUrl) {
+  pollMsgs();
+  setInterval(pollMsgs, CONFIG.pollInterval);
+} else {
+  loadDemo();
+}
+
+/* ── TICKER FOOTER ────────────────────────────────────── */
+(function initTicker() {
+  const track = document.getElementById('ticker-track');
+  const doble = [...FRASES, ...FRASES];
+  doble.forEach(f => {
+    const span = document.createElement('span');
+    span.className = 'ticker-item';
+    span.innerHTML = `<span class="ticker-sep" aria-hidden="true">&#10022;</span>${esc(f)}`;
+    track.appendChild(span);
+  });
+})();
+
+/* ── PARTÍCULAS ───────────────────────────────────────── */
+(function initParticles() {
+  const cv  = document.getElementById('particles-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H, pts = [];
+
+  function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  addEventListener('resize', resize); resize();
+
+  const COLS = [
+    [255,215,0],[30,136,229],[255,255,255],[200,150,12],[255,255,120]
+  ];
+
+  function spawn() {
+    const c = COLS[Math.floor(Math.random() * COLS.length)];
+    pts.push({
+      x: Math.random() * W, y: -10,
+      vx: (Math.random()-0.5)*1.3, vy: Math.random()*1.1+0.45,
+      r: Math.random()*3.5+1.5,
+      a: Math.random()*0.45+0.18,
+      c, wobble: Math.random()*Math.PI*2,
+      ws: (Math.random()-0.5)*0.055,
+      rot: Math.random()*Math.PI*2,
+      rs: (Math.random()-0.5)*0.035,
+      isRect: Math.random()<0.5,
+    });
+  }
+  for (let i=0; i<45; i++) { spawn(); pts[pts.length-1].y = Math.random()*H; }
+
+  window.burstConfetti = function(count = 50) {
+    for (let i = 0; i < count; i++) {
+      spawn();
+      const last = pts[pts.length - 1];
+      last.y = Math.random() * (H * 0.7);
+      last.vy = Math.random() * 2.8 + 1.2;
+      last.r = Math.random() * 4.5 + 2.0;
+    }
+  };
+
+  let t = 0;
+  function tick() {
+    ctx.clearRect(0,0,W,H);
+    if (++t % 18 === 0) spawn();
+    pts = pts.filter(p => p.y < H+15);
+    for (const p of pts) {
+      p.x += p.vx + Math.sin(p.wobble)*0.55;
+      p.y += p.vy; p.wobble += p.ws; p.rot += p.rs;
+      ctx.save();
+      ctx.globalAlpha = p.a;
+      ctx.fillStyle = `rgba(${p.c[0]},${p.c[1]},${p.c[2]},${p.a})`;
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if (p.isRect) { ctx.fillRect(-p.r,-p.r*0.5,p.r*2,p.r); }
+      else { ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+
+</body>
+</html>

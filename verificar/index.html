@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verificación de Participantes — Guatemala 205</title>
+  <meta name="description" content="Panel de verificación y consulta de mensajes y códigos de participación para el 205 Aniversario de Guatemala." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --azul-base:   #000E2A;
+      --azul-card:   rgba(0, 24, 72, 0.78);
+      --azul-mid:    #0D47A1;
+      --azul-vivo:   #1E88E5;
+      --dorado:      #FFD700;
+      --dorado-glow: rgba(255, 215, 0, 0.4);
+      --dorado-suave:#FFF9C4;
+      --blanco:      #FFFFFF;
+      --borde:       rgba(255, 215, 0, 0.25);
+      --verde:       #4CAF50;
+      --rojo:        #EF5350;
+      --font-title:  'Cinzel', serif;
+      --font-body:   'Inter', sans-serif;
+      --font-mono:   'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(0, 60, 160, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 90%, rgba(0, 40, 120, 0.35) 0%, transparent 60%),
+        var(--azul-base);
+      color: var(--blanco);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--borde);
+      margin-bottom: 24px;
+    }
+    .hdr-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .flag-bar {
+      width: 7px;
+      height: 52px;
+      border-radius: 4px;
+      background: linear-gradient(to bottom, #1565C0 33%, #FFF 33% 66%, #1565C0 66%);
+      box-shadow: 0 0 12px rgba(30, 136, 229, 0.7);
+    }
+    .hdr-title h1 {
+      font-family: var(--font-title);
+      font-size: 1.45rem;
+      color: var(--dorado);
+      letter-spacing: 0.04em;
+    }
+    .hdr-title p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .hdr-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav {
+      background: rgba(0, 30, 80, 0.6);
+      border: 1px solid var(--borde);
+      color: var(--dorado-suave);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: rgba(0, 50, 130, 0.8);
+      border-color: var(--dorado);
+      box-shadow: 0 0 14px var(--dorado-glow);
+    }
+
+    /* ── SECCIÓN DE VERIFICACIÓN RÁPIDA ── */
+    .quick-verify-panel {
+      background: linear-gradient(135deg, rgba(0, 32, 95, 0.85), rgba(0, 16, 55, 0.9));
+      border: 2px solid var(--dorado);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.2);
+    }
+    .quick-verify-title {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      color: var(--dorado);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .quick-verify-sub {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 18px;
+    }
+    .quick-verify-form {
+      display: flex;
+      gap: 12px;
+      max-width: 600px;
+    }
+    .quick-input {
+      flex: 1;
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 215, 0, 0.4);
+      background: rgba(0, 10, 30, 0.85);
+      color: var(--dorado);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .quick-input:focus {
+      border-color: var(--dorado);
+      box-shadow: 0 0 20px var(--dorado-glow);
+    }
+    .btn-verify {
+      background: linear-gradient(135deg, #1565C0, #0D47A1);
+      border: 1.5px solid var(--dorado);
+      color: #FFF;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0 26px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-verify:hover {
+      background: linear-gradient(135deg, #1E88E5, #1565C0);
+      box-shadow: 0 0 18px rgba(30, 136, 229, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* ── RESULTADO DE VERIFICACIÓN ── */
+    #verify-result {
+      margin-top: 18px;
+      display: none;
+      padding: 16px 20px;
+      border-radius: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+    #verify-result.valid {
+      display: block;
+      background: rgba(46, 125, 50, 0.25);
+      border: 2px solid #4CAF50;
+      box-shadow: 0 0 25px rgba(76, 175, 80, 0.35);
+    }
+    #verify-result.invalid {
+      display: block;
+      background: rgba(211, 47, 47, 0.25);
+      border: 2px solid #EF5350;
+      box-shadow: 0 0 25px rgba(239, 83, 80, 0.35);
+    }
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .valid .result-badge { color: #81C784; }
+    .invalid .result-badge { color: #E57373; }
+    .result-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    .result-detail-item {
+      background: rgba(0, 10, 30, 0.4);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .result-detail-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 3px;
+    }
+    .result-detail-val {
+      font-weight: 600;
+      color: #FFF;
+    }
+
+    /* ── MÉTRICAS ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .metric-card {
+      background: var(--azul-card);
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+      padding: 18px 20px;
+      backdrop-filter: blur(6px);
+    }
+    .metric-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 0.08em;
+    }
+    .metric-value {
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      color: var(--dorado);
+      margin-top: 4px;
+    }
+
+    /* ── BARRA DE FILTROS ── */
+    .filters-bar {
+      background: var(--azul-card);
+      border: 1px solid var(--borde);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .filters-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+    }
+    .filter-input, .filter-select {
+      background: rgba(0, 10, 30, 0.75);
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: #FFF;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .filter-input:focus, .filter-select:focus {
+      border-color: var(--dorado);
+    }
+    .filter-input::placeholder { color: rgba(255, 255, 255, 0.45); }
+    .filter-select option { background: #001035; color: #FFF; }
+    .btn-action {
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid var(--dorado);
+      color: var(--dorado-suave);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      background: rgba(255, 215, 0, 0.28);
+      transform: translateY(-1px);
+    }
+    .btn-reset {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover {
+      border-color: #FFF;
+      color: #FFF;
+    }
+
+    /* ── TABLA DE MENSAJES ── */
+    .table-container {
+      background: var(--azul-card);
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      background: rgba(0, 20, 60, 0.85);
+      padding: 14px 16px;
+      font-family: var(--font-title);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--dorado);
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--borde);
+    }
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+    tr:hover td {
+      background: rgba(255, 215, 0, 0.04);
+    }
+    .badge-code {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--dorado);
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      padding: 4px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-dept {
+      font-size: 0.76rem;
+      background: rgba(21, 101, 192, 0.35);
+      border: 1px solid rgba(30, 136, 229, 0.4);
+      color: #90CAF9;
+      padding: 3px 9px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+    .msg-preview {
+      max-width: 320px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(255, 255, 255, 0.88);
+    }
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 2px 4px;
+      transition: color 0.2s;
+    }
+    .copy-btn:hover { color: var(--dorado); }
+
+    .no-results {
+      padding: 40px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.95rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 14px; }
+      .quick-verify-form { flex-direction: column; }
+      .btn-verify { padding: 12px; justify-content: center; }
+      .table-container { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="hdr-left">
+      <div class="flag-bar" aria-hidden="true"></div>
+      <div class="hdr-title">
+        <h1>Verificación de Participantes</h1>
+        <p>Fiestas Patrias &middot; 205 Años de Independencia</p>
+      </div>
+    </div>
+    <div class="hdr-actions">
+      <a href="../main/index.html" class="btn-nav">&#127916; Pantalla Principal</a>
+      <a href="../form/index.html" class="btn-nav">&#9997;&#65039; Formulario</a>
+    </div>
+  </header>
+
+  <!-- SECCIÓN DE VERIFICACIÓN RÁPIDA POR CÓDIGO -->
+  <section class="quick-verify-panel">
+    <div class="quick-verify-title">
+      <span>&#128269;</span>
+      <h2>Verificar Código de Invitado</h2>
+    </div>
+    <p class="quick-verify-sub">Ingresa el código alfanumérico de 5 caracteres presentado por el participante para validar su mensaje registrado.</p>
+    
+    <form class="quick-verify-form" id="verify-form">
+      <input type="text" id="verify-code-input" class="quick-input" placeholder="00523" maxlength="5" autocomplete="off" autofocus required />
+      <button type="submit" class="btn-verify">&#10003; Validar Código</button>
+    </form>
+
+    <div id="verify-result">
+      <div class="result-badge" id="result-badge">&#10003; CÓDIGO VÁLIDO</div>
+      <div class="result-details" id="result-details"></div>
+    </div>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <section class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Total de Mensajes / Códigos</div>
+      <div class="metric-value" id="stat-total">0</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Departamentos Participantes</div>
+      <div class="metric-value" id="stat-depts">0</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Último Mensaje Registrado</div>
+      <div class="metric-value" style="font-size: 1.25rem;" id="stat-last">--:--</div>
+    </div>
+  </section>
+
+  <!-- BARRA DE FILTROS Y BÚSQUEDA -->
+  <section class="filters-bar">
+    <div class="filters-group">
+      <input type="text" id="filter-search" class="filter-input" placeholder="Buscar por nombre o mensaje..." style="min-width: 220px;" />
+      <input type="text" id="filter-code" class="filter-input" placeholder="Código (ej. 00523)..." style="width: 140px; text-transform: uppercase;" maxlength="5" />
+      <select id="filter-dept" class="filter-select">
+        <option value="">Todos los Departamentos</option>
+      </select>
+      <button type="button" class="btn-reset" id="btn-reset-filters">Limpiar Filtros</button>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button type="button" class="btn-action" id="btn-export-csv">&#128190; Exportar CSV</button>
+      <button type="button" class="btn-action" id="btn-refresh">&#8635; Actualizar</button>
+    </div>
+  </section>
+
+  <!-- TABLA DE DATOS -->
+  <div class="table-container">
+    <table id="table-messages">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Participante</th>
+          <th>Departamento</th>
+          <th>Mensaje</th>
+          <th>Hora (GUA)</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <tr>
+          <td colspan="6" class="no-results">Cargando base de datos...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    'use strict';
+
+    const API_URL = 'https://conexion-a-base-de-datos-neon.vercel.app/api/mensajes';
+
+    const DEPARTAMENTOS = [
+      "Alta Verapaz", "Baja Verapaz", "Chimaltenango", "Chiquimula", "El Progreso",
+      "Escuintla", "Guatemala", "Huehuetenango", "Izabal", "Jalapa", "Jutiapa",
+      "Petén", "Quetzaltenango", "Quiché", "Retalhuleu", "Sacatepéquez",
+      "San Marcos", "Santa Rosa", "Sololá", "Suchitepéquez", "Totonicapán", "Zacapa"
+    ];
+
+    let allMessages = [];
+
+    // Poblar selector de departamentos
+    const deptSelect = document.getElementById('filter-dept');
+    DEPARTAMENTOS.forEach(d => {
+      const opt = document.createElement('option');
+      opt.value = d; opt.textContent = d;
+      deptSelect.appendChild(opt);
+    });
+
+    function esc(s) {
+      return String(s || '')
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch(API_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Error de conexión');
+        const data = await res.json();
+        allMessages = data.mensajes || [];
+        updateMetrics();
+        applyFilters();
+      } catch (err) {
+        document.getElementById('table-body').innerHTML = `
+          <tr>
+            <td colspan="6" class="no-results" style="color: #EF5350;">
+              No se pudo conectar con la base de datos (${esc(err.message)}).
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    function updateMetrics() {
+      document.getElementById('stat-total').textContent = allMessages.length;
+      const depts = new Set(allMessages.map(m => m.departamento).filter(Boolean));
+      document.getElementById('stat-depts').textContent = depts.size;
+      if (allMessages.length > 0) {
+        const last = allMessages[0];
+        document.getElementById('stat-last').textContent = last.hora || (last.created_at ? new Date(last.created_at).toLocaleTimeString('es-GT', {hour:'2-digit', minute:'2-digit'}) : '--:--');
+      }
+    }
+
+    function applyFilters() {
+      const qSearch = document.getElementById('filter-search').value.trim().toLowerCase();
+      const qCode   = document.getElementById('filter-code').value.trim().toUpperCase();
+      const qDept   = document.getElementById('filter-dept').value;
+
+      const filtered = allMessages.filter(m => {
+        if (qCode && (!m.codigo || !m.codigo.toUpperCase().includes(qCode))) return false;
+        if (qDept && m.departamento !== qDept) return false;
+        if (qSearch) {
+          const matchName = (m.nombre || '').toLowerCase().includes(qSearch);
+          const matchMsg  = (m.mensaje || '').toLowerCase().includes(qSearch);
+          if (!matchName && !matchMsg) return false;
+        }
+        return true;
+      });
+
+      renderTable(filtered);
+    }
+
+    function renderTable(list) {
+      const tbody = document.getElementById('table-body');
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="no-results">No se encontraron mensajes con los filtros seleccionados.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map(m => {
+        const cod = esc(m.codigo || '-----');
+        const hora = esc(m.hora || (m.created_at ? new Date(m.created_at).toLocaleTimeString('es-GT', {hour:'2-digit', minute:'2-digit'}) : ''));
+        return `
+          <tr data-id="${m.id}">
+            <td>
+              <span class="badge-code">${cod}</span>
+              <button class="copy-btn" title="Copiar código" onclick="copyText('${cod}')">&#128203;</button>
+            </td>
+            <td><strong>${esc(m.nombre)}</strong></td>
+            <td>${m.departamento ? `<span class="badge-dept">${esc(m.departamento)}</span>` : '<span style="opacity:0.4;">--</span>'}</td>
+            <td><div class="msg-preview" title="${esc(m.mensaje)}">${esc(m.mensaje)}</div></td>
+            <td>${hora}</td>
+            <td>
+              <button class="btn-action" style="padding: 4px 10px; font-size: 0.75rem;" onclick="quickCheck('${cod}')">&#10003; Verificar</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    window.copyText = function(txt) {
+      navigator.clipboard.writeText(txt).then(() => {
+        alert('Código ' + txt + ' copiado al portapapeles.');
+      });
+    };
+
+    window.quickCheck = function(code) {
+      document.getElementById('verify-code-input').value = code;
+      verifyCode(code);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    function verifyCode(inputCode) {
+      const code = inputCode.trim().toUpperCase();
+      const resultBox = document.getElementById('verify-result');
+      const badge = document.getElementById('result-badge');
+      const details = document.getElementById('result-details');
+
+      if (!code) return;
+
+      const found = allMessages.find(m => (m.codigo || '').toUpperCase() === code);
+
+      if (found) {
+        resultBox.className = 'valid';
+        badge.innerHTML = '&#10003; C&Oacute;DIGO V&Aacute;LIDO Y CONFIRMADO';
+        const hora = found.hora || (found.created_at ? new Date(found.created_at).toLocaleTimeString('es-GT', {hour:'2-digit', minute:'2-digit'}) : 'Hora desconocida');
+        details.innerHTML = `
+          <div class="result-detail-item">
+            <div class="result-detail-label">C&oacute;digo</div>
+            <div class="result-detail-val" style="color: var(--dorado); font-family: var(--font-mono); font-size: 1.1rem;">${esc(found.codigo)}</div>
+          </div>
+          <div class="result-detail-item">
+            <div class="result-detail-label">Participante</div>
+            <div class="result-detail-val">${esc(found.nombre)}</div>
+          </div>
+          <div class="result-detail-item">
+            <div class="result-detail-label">Departamento</div>
+            <div class="result-detail-val">${esc(found.departamento || 'No especificado')}</div>
+          </div>
+          <div class="result-detail-item">
+            <div class="result-detail-label">Hora de Registro</div>
+            <div class="result-detail-val">${hora}</div>
+          </div>
+          <div class="result-detail-item" style="grid-column: 1 / -1;">
+            <div class="result-detail-label">Mensaje Registrado</div>
+            <div class="result-detail-val" style="font-style: italic; font-weight: normal;">&ldquo;${esc(found.mensaje)}&rdquo;</div>
+          </div>
+        `;
+      } else {
+        resultBox.className = 'invalid';
+        badge.innerHTML = '&#10008; C&Oacute;DIGO NO ENCONTRADO EN LA BASE DE DATOS';
+        details.innerHTML = `
+          <div class="result-detail-item" style="grid-column: 1 / -1;">
+            <div class="result-detail-val" style="color: #EF9A9A;">
+              El código "<strong>${esc(code)}</strong>" no coincide con ningún registro activo en el sistema. Verifica que esté bien escrito.
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById('verify-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      verifyCode(document.getElementById('verify-code-input').value);
+    });
+
+    // Filtros dinámicos en tiempo real
+    document.getElementById('filter-search').addEventListener('input', applyFilters);
+    document.getElementById('filter-code').addEventListener('input', applyFilters);
+    document.getElementById('filter-dept').addEventListener('change', applyFilters);
+
+    document.getElementById('btn-reset-filters').addEventListener('click', () => {
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-code').value = '';
+      document.getElementById('filter-dept').value = '';
+      applyFilters();
+    });
+
+    document.getElementById('btn-refresh').addEventListener('click', loadData);
+
+    // Exportar a CSV
+    document.getElementById('btn-export-csv').addEventListener('click', () => {
+      if (allMessages.length === 0) return alert('No hay datos para exportar.');
+      let csv = 'ID,Codigo,Nombre,Departamento,Mensaje,Hora,Fecha\n';
+      allMessages.forEach(m => {
+        const id = m.id || '';
+        const cod = (m.codigo || '').replace(/"/g, '""');
+        const nom = (m.nombre || '').replace(/"/g, '""');
+        const dep = (m.departamento || '').replace(/"/g, '""');
+        const msg = (m.mensaje || '').replace(/"/g, '""');
+        const hora = m.hora || '';
+        const fecha = m.created_at || '';
+        csv += `"${id}","${cod}","${nom}","${dep}","${msg}","${hora}","${fecha}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'participantes_guatemala_205.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Auto-recarga cada 15 segundos
+    setInterval(loadData, 15000);
+
+    // Carga inicial
+    loadData();
+  </script>
+</body>
+</html>
