@@ -12,9 +12,11 @@ bd/
 *.TIF
 *.tiff
 
-# Node
+# Node & Builds
 node_modules/
 .vercel/
+dist_cloudflare/
+patria_cloudflare.zip
 
 # Python
 __pycache__/
